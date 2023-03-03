@@ -9,8 +9,12 @@
 
   <!-- Calculator Code -->
   <script defer type="text/javascript" src="./index.js"></script>
-
-
+  
+  <!-- Mathquill, JQuery and Nerdamer-->
+  <link rel="stylesheet" href="./dependencies/mathquill.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script no-defer src="./dependencies/mathquill.js"></script>
+  <script src="./dependencies/all.min.js"></script>
   
   <title>Derivatives Calculator (LaTeX rendering)</title>
 
@@ -24,9 +28,8 @@
 
   <section class="user-input">
     <h1>Derivatives Calculator</h1>
-    <p>Enter only the expression to derive, ignore the equals sign and f(x).</p>
     <div class="input-inner-container">
-
+      <p>Enter only the expression to derive, ignore the equals sign and f(x).</p>
       <!-- Calculator keypad -->
       <div class="calc-keypad">
       
@@ -43,7 +46,7 @@
 
       <!-- If expression has more than one variable, ask for which variable to derive -->
       <div class="second-input">
-        <p>For which variable to solve? </p> 
+        <h2>For which variable to solve? </h2> 
         <input id="input2" class="input-value" placeholder="Variable">
       </div>
     </div>
