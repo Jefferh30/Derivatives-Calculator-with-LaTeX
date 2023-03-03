@@ -19,6 +19,46 @@
   <noscript>
     You need to enable JavaScript to use this app
   </noscript>
+
+  <!-- User input section -->
+
+  <section class="user-input">
+    <h1>Derivatives Calculator</h1>
+    <p>Enter only the expression to derive, ignore the equals sign and f(x).</p>
+    <div class="input-inner-container">
+
+      <!-- Calculator keypad -->
+      <div class="calc-keypad">
+      
+      </div>
+       
+      <!-- Input field inserted here -->
+      <p class="main-input"><span id="inputField"></span></p>
+
+      <!-- Derive, Clear buttons -->
+      <div class="container-btns">
+        <button onclick="deriveBtn()" class="calculate-btn">Derive</button>
+      <button onclick="clearValues()" class="clear-btn">Clear</button>
+      </div>
+
+      <!-- If expression has more than one variable, ask for which variable to derive -->
+      <div class="second-input">
+        <p>For which variable to solve? </p> 
+        <input id="input2" class="input-value" placeholder="Variable">
+      </div>
+    </div>
+
+    </section>
+
+
+
+    <!-- Direct answer displayed here -->
+    <section>
+      <div class="output-inner-container">
+        <h2>Answer:</h2>
+      <div class="solution-text"><span id="result1">-</span></div>
+      </div>
+    </section>
   
 </body>
 </html>
