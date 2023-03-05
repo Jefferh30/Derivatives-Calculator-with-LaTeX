@@ -1,18 +1,24 @@
 //Display main input field using MathQuill
-const MQ = MathQuill.getInterface(2);
-const inputSpan = document.getElementById('inputField');
-let answerMathField = MQ.MathField(inputSpan, {
-    spaceBehavesLikeTab: true,
-    handlers: {
-      edit: function() {
-        answerMathField.focus();}}});
+let answerMathField;
+let MQ
 
-//render keypad in LaTeX
-let padBtns = document.getElementsByClassName("keypad-btn");
+const startMathQuill = () => {
+  MQ = MathQuill.getInterface(2);
+  const inputSpan = document.getElementById('inputField');
+  answerMathField = MQ.MathField(inputSpan, {
+      spaceBehavesLikeTab: true,
+      handlers: {
+        edit: function() {
+          answerMathField.focus();}}});
 
-for (let i = 0; i < padBtns.length; i++) {
-  MQ.StaticMath(padBtns[i]);
+  //render keypad in LaTeX
+  const padBtns = document.getElementsByClassName("keypad-btn");
+
+  for (let i = 0; i < padBtns.length; i++) {
+    MQ.StaticMath(padBtns[i]);
+  }
 }
+
 
 //functions for keypad and LaTeX
 const latexK = {
@@ -30,25 +36,18 @@ const latexK = {
 }
 
 // Function that activates on click, derive function
-function deriveBtn(){
+const deriveBtn = () => {
     let variableIn = document.getElementById("input2").value.toLowerCase();
-    let input1 = answerMathField.latex();
-    let equationIn0 = nerdamer.convertFromLaTeX(input1);
-    let equationIn = nerdamer.convertFromLaTeX(input1).toString();
-    let variablesIn =  nerdamer(equationIn).variables();
-  //condition to ask for variable  
-  if(variablesIn.length == 1){variableIn = variablesIn[0]; 
-                              executeSolution();
-                             document.getElementById("second-input").style.display = "none";} else if(variablesIn.length > 1 && variableIn == ""){
-      document.getElementById("second-input").style.display = "grid"; 
-    } else{executeSolution();
-          document.getElementById("second-input").style.display = "none";}
+    const input1 = answerMathField.latex();
+    const equationIn = nerdamer.convertFromLaTeX(input1).toString();
+    const variablesIn =  nerdamer(equationIn).variables();
     
- function executeSolution() {  
-    let solution = nerdamer('diff('+ equationIn + ',' + variableIn + ')');                             
-    let solution2 = solution.toTeX();
-    let solution3 = solution2.replace(/\\cdot/g,'');
-    let solutionFinal = `<span id="answerFinal">f'(${variableIn})=${solution3}</span>`;
+  // helper function to find solution
+  const executeSolution = () => {  
+    const solution = nerdamer('diff('+ equationIn + ',' + variableIn + ')');                             
+    const solution2 = solution.toTeX();
+    const solution3 = solution2.replace(/\\cdot/g,'');
+    const solutionFinal = `<span id="answerFinal">f'(${variableIn})=${solution3}</span>`;
    
    document.getElementById("result1").innerHTML = `<p style="text-align:center; font-size:21px; width: 100%;" class="manySolutions">${solutionFinal}</p>`;  
                              
@@ -56,11 +55,24 @@ function deriveBtn(){
    MQ.StaticMath(answerFinal);  
     //Clear all expression to avoid creating new ones when clicking
     nerdamer.flush();
-}}
+  }
+
+    //condition to ask for variable  
+    if(variablesIn.length == 1){
+      variableIn = variablesIn[0]; 
+      executeSolution();
+      document.getElementById("second-input").style.display = "none";
+    } else if (variablesIn.length > 1 && variableIn == "") {
+      document.getElementById("second-input").style.display = "grid"; 
+      } else {
+        executeSolution();
+        document.getElementById("second-input").style.display = "none";
+      }
+}
 
  //Clear everything on click
   
-  function clearValues(){
+  const clearValues = () => {
       answerMathField.latex("");
       document.getElementById("input2").value = "";
       document.getElementById("result1").innerHTML = "-";
