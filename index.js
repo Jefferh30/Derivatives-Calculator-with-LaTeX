@@ -1,6 +1,6 @@
 //Display main input field using MathQuill
 let answerMathField;
-let MQ
+let MQ;
 
 const startMathQuill = () => {
   MQ = MathQuill.getInterface(2);
